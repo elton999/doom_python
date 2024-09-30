@@ -8,8 +8,8 @@ running = True
 
 pixelSize = 4
 cameraX = pixelSize
-cameraY = pixelSize
-cameraZ = pixelSize
+cameraY = pixelSize 
+cameraZ = 20
 cameraA = 0
 cameraL = 0
 
@@ -27,11 +27,11 @@ def Draw3D():
     x2 = 40 - cameraX
     y2 = 290 - cameraY
 
-    worldX[0] = x1 - y1
-    worldX[1] = x2 - y2 
+    worldX[0] = x1 * cs - y1 * sn
+    worldX[1] = x2 * cs - y2 * sn
 
-    worldY[0] = y1 + x1
-    worldY[1] = y2 + x2
+    worldY[0] = y1 * cs + x1 * sn
+    worldY[1] = y2 * cs + x2 * sn
 
     worldZ[0] = 0 - cameraZ + ((cameraL * worldY[0]) / 32)
     worldZ[1] = 0 - cameraZ + ((cameraL * worldY[1]) / 32)

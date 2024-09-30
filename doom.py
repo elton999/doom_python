@@ -50,11 +50,10 @@ def DrawWall(x1 : int , x2 : int, b1 : int,  b2 : int, t1 : int, t2 : int):
         y1 = int(dyb * (xx - xs + 0.5) / dx + b1)
         y2 = int(dyt * (xx - xs + 0.5) / dx + t1)
 
-        if xx > 0 and xx< SW and y1 > 0 and y1 < SH:
-            pixels[xx][y1] = "yellow"
-        if xx > 0 and xx< SW and y2 > 0 and y2 < SH:
-            pixels[xx][y2] = "yellow"
-
+        for y in range(int(y2 - y1)):
+            yy = y + y1
+            if xx > 0 and xx< SW and yy > 0 and yy < SH:
+                pixels[xx][yy] = "yellow"
 
 
 def Draw3D():
@@ -95,11 +94,6 @@ def Draw3D():
     worldY[3] = worldZ[3] * 200 / worldY[3] + (SH / 2)
 
     DrawWall(worldX[0], worldX[1], worldY[0], worldY[1], worldY[2], worldY[3])
-
-    if worldX[0] > 0 and worldX[0] < SW and worldY[0] > 0 and worldY[0] < SH:
-        pixels[int(worldX[0])][int(worldY[0])] = "blue"
-    if worldX[1] > 0 and worldX[1] < SW and worldY[1] > 0 and worldY[1] < SH:
-        pixels[int(worldX[1])][int(worldY[1])] = "blue"
 
 SetUp()
 

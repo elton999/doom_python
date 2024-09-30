@@ -36,6 +36,20 @@ def Render():
         for y in range(SH):
             pygame.draw.rect(screen, pixels[x][y], pygame.Rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize))
 
+def DrawWall(x1 : int , x2 : int, b1 : int,  b2 : int):
+    dyb = b2 - b1
+    dx = x2 - x1
+    if dx == 0:
+        dx = 1
+    xs = x1
+
+    for x in range(int(x2 - x1)):
+        xx = int(x + x1)
+        y1 = int(dyb * (xx - xs + 0.5) / dx + b1)
+        if xx > 0 and xx< SW and y1 > 0 and y1 < SH:
+            pixels[xx][y1] = "yellow"
+
+
 
 def Draw3D():
     worldX = [0,0,0,0]
@@ -64,6 +78,8 @@ def Draw3D():
     worldY[0] = worldZ[0] * 200 / worldY[0] + (SH / 2)
     worldX[1] = worldX[1] * 200 / worldY[1] + (SW / 2)
     worldY[1] = worldZ[1] * 200 / worldY[1] + (SH / 2)
+
+    DrawWall(worldX[0], worldX[1], worldY[0], worldY[1])
 
     if worldX[0] > 0 and worldX[0] < SW and worldY[0] > 0 and worldY[0] < SH:
         pixels[int(worldX[0])][int(worldY[0])] = "blue"

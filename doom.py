@@ -11,9 +11,9 @@ SCREEN_WIDTH = 200
 
 pixelSize = 4
 cameraX =  70
-cameraY =  -110 
-cameraZ = 20
-cameraA = 0
+cameraY = -110 
+cameraZ =  20
+cameraAngle = 0
 cameraL = 0
 
 pixels = []
@@ -70,40 +70,49 @@ def Draw3D():
     worldY = [0,0,0,0]
     worldZ = [0,0,0,0]
 
-    cs = math.cos(math.radians(cameraA))
-    sn = math.sin(math.radians(cameraA))
+    cs = math.cos(math.radians(cameraAngle))
+    sn = math.sin(math.radians(cameraAngle))
+
+    point1X = 40
+    point1Y = 10
+
+    point2X = 40
+    point2Y = 290
     
-    x1 = 40 - cameraX
-    y1 = 10 - cameraY
+    dist1X = point1X - cameraX
+    dist1Y = point1Y - cameraY
 
-    x2 = 40 - cameraX
-    y2 = 290 - cameraY
+    dist2X = point2X - cameraX
+    dist2Y = point2Y - cameraY
 
-    worldX[0] = x1 * cs - y1 * sn
-    worldX[1] = x2 * cs - y2 * sn
+    worldX[0] = dist1X * cs - dist1Y * sn
+    worldX[1] = dist2X * cs - dist2Y * sn
     worldX[2] = worldX[0]
     worldX[3] = worldX[1]
     
-    worldY[0] = y1 * cs + x1 * sn
-    worldY[1] = y2 * cs + x2 * sn
+    worldY[0] = dist1Y * cs + dist1X * sn
+    worldY[1] = dist2Y * cs + dist2X * sn
     worldY[2] = worldY[0]
     worldY[3] = worldY[1]
 
-    worldZ[0] = 0 - cameraZ + ((cameraL * worldY[0]) / 32)
-    worldZ[1] = 0 - cameraZ + ((cameraL * worldY[1]) / 32)
+    worldZ[0] = 0 - cameraZ #+ ((cameraL * worldY[0]) / 32)
+    worldZ[1] = 0 - cameraZ #+ ((cameraL * worldY[1]) / 32)
     worldZ[2] = worldZ[0] + 40
     worldZ[3] = worldZ[1] + 40
 
+    widthRation =  SCREEN_WIDTH / 2
+    centerScreenW = SCREEN_WIDTH / 2
+    centerScreenH =  SCREEN_HEIGHT / 2
 
-    worldX[0] = worldX[0] * 200 / worldY[0] + (SCREEN_WIDTH / 2)
-    worldY[0] = worldZ[0] * 200 / worldY[0] + (SCREEN_HEIGHT / 2)
-    worldX[1] = worldX[1] * 200 / worldY[1] + (SCREEN_WIDTH / 2)
-    worldY[1] = worldZ[1] * 200 / worldY[1] + (SCREEN_HEIGHT / 2)
+    worldX[0] = worldX[0] * widthRation / worldY[0] + centerScreenW
+    worldY[0] = worldZ[0] * widthRation / worldY[0] + centerScreenH
+    worldX[1] = worldX[1] * widthRation / worldY[1] + centerScreenW
+    worldY[1] = worldZ[1] * widthRation / worldY[1] + centerScreenH
 
-    worldX[2] = worldX[2] * 200 / worldY[2] + (SCREEN_WIDTH / 2)
-    worldY[2] = worldZ[2] * 200 / worldY[2] + (SCREEN_HEIGHT / 2)
-    worldX[3] = worldX[3] * 200 / worldY[3] + (SCREEN_WIDTH / 2)
-    worldY[3] = worldZ[3] * 200 / worldY[3] + (SCREEN_HEIGHT / 2)
+    worldX[2] = worldX[2] * widthRation / worldY[2] + centerScreenW
+    worldY[2] = worldZ[2] * widthRation / worldY[2] + centerScreenH
+    worldX[3] = worldX[3] * widthRation / worldY[3] + centerScreenW
+    worldY[3] = worldZ[3] * widthRation / worldY[3] + centerScreenH
 
     DrawWall(worldX[0], worldX[1], worldY[0], worldY[1], worldY[2], worldY[3])
 
@@ -117,16 +126,16 @@ while running:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a] and not keys[pygame.K_LSHIFT]:
-        cameraA -=  4
-        if(cameraA < 0):
-            cameraA += 360
+        cameraAngle -=  4
+        if(cameraAngle < 0):
+            cameraAngle += 360
     if keys[pygame.K_d] and not keys[pygame.K_LSHIFT]:
-        cameraA +=   4
-        if(cameraA > 359):
-            cameraA -= 360
+        cameraAngle +=   4
+        if(cameraAngle > 359):
+            cameraAngle -= 360
 
-    dx = math.radians(math.sin(cameraA)) * 10
-    dy = math.radians(math.cos(cameraA)) * 10
+    dx = math.radians(math.sin(cameraAngle)) * 10
+    dy = math.radians(math.cos(cameraAngle)) * 10
 
     if keys[pygame.K_w] and not keys[pygame.K_m]:
         cameraX += dx

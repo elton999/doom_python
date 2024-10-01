@@ -95,10 +95,10 @@ def Draw3D():
     worldY[2] = worldY[0]
     worldY[3] = worldY[1]
 
-    worldZ[0] = 0 - cameraZ #+ ((cameraL * worldY[0]) / 32)
-    worldZ[1] = 0 - cameraZ #+ ((cameraL * worldY[1]) / 32)
-    worldZ[2] = worldZ[0] + 40
-    worldZ[3] = worldZ[1] + 40
+    worldZ[0] = - cameraZ
+    worldZ[1] = - cameraZ 
+    worldZ[2] = worldZ[0]
+    worldZ[3] = worldZ[1]
 
     widthRation =  SCREEN_WIDTH / 2
     centerScreenW = SCREEN_WIDTH / 2
